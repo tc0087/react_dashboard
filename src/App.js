@@ -1,26 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import parse from 'url-parse'
+import Terminal from './terminal/hoc/Terminal'
+import Editor from './editor/hoc/Editor'
+import WebApp from './web_app/hoc/WebApp'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const parsedUrl = parse(window.location.href)
+const host = parsedUrl.host
+
+const App = () => (
+	<div>
+		{host === 'localhost:3000' && <Terminal />}
+		{host === 'editor.localhost:3000' && <Editor />}
+		{host !== 'localhost:3000' && host !== 'editor.localhost:3000' && <WebApp />}
+	</div>
+)
+
 
 export default App;
